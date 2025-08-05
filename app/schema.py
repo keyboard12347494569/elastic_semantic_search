@@ -1,3 +1,7 @@
+# app/schema.py
+"""
+It defines a JSON schema for validating the DSL query structure — ensuring index, query, and optional fields like size, aggs, etc., are well-formed.
+"""
 DSL_SCHEMA = {
   "type": "object",
   "properties": {
