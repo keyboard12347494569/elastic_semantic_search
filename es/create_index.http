@@ -1,0 +1,5 @@
+PUT people-index
+@mapping.json
+
+PUT _ingest/pipeline/people_loc_split
+@pipeline_loc_split.json

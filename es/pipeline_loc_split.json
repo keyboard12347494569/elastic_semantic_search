@@ -1,0 +1,7 @@
+{
+  "processors": [
+    { "dissect": { "field": "Locations", "pattern": "%{City}, %{Country}", "ignore_missing": true } },
+    { "trim": { "field": "City" } },
+    { "trim": { "field": "Country" } }
+  ]
+}
