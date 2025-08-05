@@ -5,13 +5,13 @@ from typing import Dict
 from elasticsearch import Elasticsearch
 from dotenv import load_dotenv
 
+# Load environment variables from .env file
+load_dotenv()
+
 # Configuration
 ES_URL = os.getenv("ES_URL", "http://localhost:9200")
 ES_INDEX = os.getenv("ES_INDEX", "people-index")
 MAX_SIZE = int(os.getenv("MAX_SIZE", "100"))
-
-# Load environment variables from .env file
-load_dotenv()
 
 # Initialize Elasticsearch client
 es = Elasticsearch(ES_URL)
