@@ -18,6 +18,11 @@
 
 ---
 
+## 🧠 Architecture Diagram
+
+![Architecture](diagrams/architecture.drawio.svg)
+
+---
 ## 📁 Project Structure
 
 ```bash
@@ -149,12 +154,6 @@ curl -XPOST http://localhost:8080/search \
   -H 'Content-Type: application/json' \
   -d '{"query": "People in Singapore who joined a cybersecurity training", "size": 5, "summarize": true}'
 ```
-
----
-
-## 🧠 Architecture Diagram
-
-![Architecture](diagrams/architecture.drawio.svg)
 
 ---
 
