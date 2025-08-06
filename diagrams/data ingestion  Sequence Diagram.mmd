@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant CLI as CLI: bulk_load.py
+    participant CSV as CSV File
+    participant PD as Pandas
+    participant ES as Elasticsearch
+    participant PIPE as Ingest Pipeline
+
+    CLI->>CSV: Load raw data
+    CSV-->>CLI: Rows with People, Families, Locations, Events
+    CLI->>PD: Normalize and clean DataFrame
+    PD-->>CLI: Cleaned data
+    CLI->>CLI: Generate _id from key fields
+    loop For each document
+        CLI->>ES: Send bulk insert request
+    end
+    ES-->>PIPE: Route document through ingest pipeline
+    PIPE-->>ES: Add parsed fields (City, Country)
+    ES-->>CLI: Acknowledge success or failure

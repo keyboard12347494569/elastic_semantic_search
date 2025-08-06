@@ -1,0 +1,40 @@
+sequenceDiagram
+    %% Title
+    title 🔄 Smart-Elastic-Search: Full Workflow (Ingestion → Query)
+
+    %% Data Ingestion Pipeline
+    participant CSV_File as 🗂️ CSV File
+    participant Pandas as 🐼 Pandas
+    participant BulkLoader as 🛠️ Ingest Script
+    participant ES as 📦 Elasticsearch
+
+    CSV_File->>Pandas: read_csv()
+    Pandas->>Pandas: Clean, Normalize, Validate
+    Pandas->>BulkLoader: yield bulk actions
+    BulkLoader->>ES: Bulk insert via helpers.bulk()
+
+    Note over CSV_File,ES: 🔁 Repeatable data loading with\nstable `_id` generation for deduplication
+
+    %% Separator
+    Note over ES,ES: 💡 Index is now ready with n-gram search\nand custom pipeline (split locations)
+
+    %% Inference Pipeline
+    participant User as 🧑 User
+    participant FastAPI as ⚡ FastAPI Server
+    participant LLM as 🧠 Azure OpenAI
+    participant Validator as 🔍 DSL Validator
+    participant ES as 📦 Elasticsearch
+    participant Summarizer as 🧾 Summarizer
+
+    User->>FastAPI: POST /search { query, size, summarize }
+    FastAPI->>LLM: 🔁 prompt(query) → DSL
+    LLM-->>FastAPI: JSON DSL
+    FastAPI->>Validator: validate DSL
+    Validator-->>FastAPI: ✅ OK / ❌ Error
+    FastAPI->>ES: execute_search(dsl)
+    ES-->>FastAPI: hits + aggs
+    alt summarize == True
+        FastAPI->>Summarizer: summarize(query, es_response)
+        Summarizer-->>FastAPI: summary text
+    end
+    FastAPI-->>User: JSON response with hits, aggs, summary

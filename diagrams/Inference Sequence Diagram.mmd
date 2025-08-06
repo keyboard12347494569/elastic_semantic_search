@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant User as 🧑‍💻 User
+    participant API as ⚡ FastAPI Server
+    participant LLM as 💡 Azure OpenAI (Prompting)
+    participant Validator as ✅ Query Validator
+    participant ES as 📦 Elasticsearch
+    participant Summary as 🧠 Summarizer
+
+    User->>API: Sends NL Query
+    API->>LLM: Prompt with few-shots
+    LLM-->>API: DSL JSON response
+    API->>Validator: Validate DSL
+    Validator-->>API: Validated DSL
+    API->>ES: Execute DSL search
+    ES-->>API: Hits + Aggs + Took
+    API->>Summary: Summarize results
+    Summary-->>API: Natural Language Summary
+    API-->>User: Final Response (Data + Summary)
