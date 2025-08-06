@@ -154,13 +154,19 @@ curl -XPOST http://localhost:8080/search \
 
 ## 🧠 Architecture Diagram
 
-![Architecture]()
+![Architecture](diagrams/architecture.drawio.svg)
 
 ---
 
-## 🔁 Data Flow Diagram
+## 🔁 Data Ingestion Sequence Diagram
 
-![Flow](diagrams/flow_diagram.svg)
+![data ingestion](diagrams/data%20ingestion%20%20Sequence%20Diagram.mmd.svg)
+
+---
+
+## 🖥️ Inference Sequence Diagram
+
+![inference](diagrams/Inference%20Sequence%20Diagram.svg)
 
 ---
 
