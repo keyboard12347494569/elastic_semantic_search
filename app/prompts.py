@@ -1,15 +1,20 @@
-QUERY_SYS = """Translate NL to Elasticsearch DSL (JSON only) for index "people-index".
-Fields:
-- People (text, n-gram)
-- Families (text, n-gram), Families_raw (keyword)
-- Locations (text, n-gram), Locations_raw (keyword)
-- Events (text, n-gram)
-Rules:
-- Use match/match_phrase for text search on People/Families/Locations/Events.
-- For aggregations or exact buckets, use *_raw keyword fields (e.g., Locations_raw).
-- Combine multiple conditions with bool.must.
-- Default size to 10 unless size is specified or using pure aggs (size:0).
-- Return ONLY JSON. No prose."""
+import os
+from dotenv import load_dotenv
+
+# ---------------------- Environment Setup ---------------------- #
+load_dotenv()
+
+
+PROMPT_TEMPLATE_PATH = os.getenv("SYS_PROMPT")
+
+
+def load_prompt_template(file_path: str = PROMPT_TEMPLATE_PATH) -> str:
+    """Load the LLM prompt template from file."""
+    with open(file_path, "r", encoding="utf-8") as f:
+        return f.read()
+
+
+QUERY_SYS = load_prompt_template(PROMPT_TEMPLATE_PATH)
 
 FEWSHOTS = [
     ("Count people per team.",
