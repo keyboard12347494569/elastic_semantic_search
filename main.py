@@ -20,7 +20,7 @@ class SearchRequest(BaseModel):
         summarize (bool): Whether to return a summary of the results (default is True).
     """
     query: str
-    size: Optional[int] = None
+    size: Optional[int] = 100
     summarize: bool = True
 
 
