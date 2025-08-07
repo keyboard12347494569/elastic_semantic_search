@@ -1,0 +1,16 @@
+{
+  "processors": [
+    {
+      "grok": {
+        "field": "Locations",
+        "patterns": [
+          "%{GREEDYDATA:City}, %{GREEDYDATA:Country}",
+          "%{GREEDYDATA:Country}"
+        ],
+        "ignore_missing": true
+      }
+    },
+    { "trim": { "field": "City", "ignore_failure": true } },
+    { "trim": { "field": "Country" } }
+  ]
+}
