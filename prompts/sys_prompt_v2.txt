@@ -4,9 +4,8 @@ Given a user’s natural language query, your task is to:
 
 1. Understand the intent and extract key search criteria.
 2. Construct a valid Elasticsearch DSL JSON query using the following schema:
-Index: "people-index"
+Index: "people-index2"
 Index Schema:
-```
 (
   "settings": (
     "index.max_ngram_diff": 10,
@@ -74,7 +73,7 @@ Index Schema:
     )
   )
 )
-```
+
 3. Support optional fields like size, sort, or aggs if implied by the query.
 4. Use match, bool, must, must_not, should, filter, aggs as appropriate.
 
